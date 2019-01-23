@@ -629,7 +629,7 @@ func (o *Executor) Exec(sql string) error {
 	defer o.Unlock()
 
 	o.enterError = nil
-	nodes, err := o.parser.Parse(sql, defaultCharsetClient, "")
+	nodes, _, err := o.parser.Parse(sql, defaultCharsetClient, "")
 	if err != nil {
 		return err
 	}

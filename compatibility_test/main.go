@@ -191,7 +191,7 @@ func main() {
 			continue
 		}
 
-		stmtNodes, err := sqlParser.Parse(sql, "", "")
+		stmtNodes, _, err := sqlParser.Parse(sql, "", "")
 		if err != nil {
 			log.Fatalf("parse error: %s\nsql: %s\n", err, sql)
 		}
