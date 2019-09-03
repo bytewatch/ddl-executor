@@ -15,8 +15,9 @@
 package executor
 
 import (
-	"github.com/stretchr/testify/require"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestIsDdl(t *testing.T) {
@@ -64,7 +65,7 @@ func TestCreateTable(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_PRI,
 		Charset:   "",
@@ -181,7 +182,7 @@ func TestCreateTableWithLike(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_PRI,
 		Charset:   "",
@@ -220,7 +221,7 @@ func TestAlterTableAddColumn(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_PRI,
 		Charset:   "",
@@ -288,7 +289,7 @@ func TestAlterTableAddColumnWithPos(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_PRI,
 		Charset:   "",
@@ -347,7 +348,7 @@ func TestAlterTableDropColumn(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_PRI,
 		Charset:   "",
@@ -411,7 +412,7 @@ func TestAlterTableAddIndex(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_PRI,
 		Charset:   "",
@@ -490,7 +491,7 @@ func TestAlterTableAddIndexLowerCase(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "ID",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_PRI,
 		Charset:   "",
@@ -562,7 +563,7 @@ func TestAlterTableDropIndex(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_MUL,
 		Charset:   "",
@@ -626,7 +627,7 @@ func TestAlterTableModifyColumn(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_NONE,
 		Charset:   "",
@@ -694,7 +695,7 @@ func TestAlterTableModifyColumnWithPos(t *testing.T) {
 	})
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_NONE,
 		Charset:   "",
@@ -734,7 +735,7 @@ func TestAlterTableChangeColumn(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_NONE,
 		Charset:   "",
@@ -796,7 +797,7 @@ func TestAlterTableRenameTable(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_MUL,
 		Charset:   "",
@@ -885,7 +886,7 @@ func TestCreateIndex(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_MUL,
 		Charset:   "",
@@ -947,7 +948,7 @@ func TestRenameTable(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_PRI,
 		Charset:   "",
@@ -1030,7 +1031,7 @@ func TestDropIndex(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_NONE,
 		Charset:   "",
