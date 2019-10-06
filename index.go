@@ -75,7 +75,7 @@ func (o *IndexDef) changeColumn(originalName, newName string) {
 }
 
 func (o *IndexDef) hasPrefix(columns []string) bool {
-	if len(o.Columns) < len(columns) {
+	if len(o.Columns) > len(columns) {
 		return false
 	}
 
