@@ -3,35 +3,35 @@ The ddl-executor is a golang library that can parse and execute MySQL DDL statem
 The library maintains schema structures in memory, for examples: creates a new schema structure when a CREATE statement executed, modifys a schema structure when a ALTER statement executed.
 
 # What can it be used for ? 
-This library may be used for DDL analysis, binlog stream's schema tracking(like binlog_row_metadata=FULL in MySQL 8) and so on. 
-
+This library may be used for DDL analysis, binlog stream's schema tracking (like [`binlog_row_metadata=FULL`](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_binlog_row_metadata) in MySQL 8) and so on. 
 
 # Usage
 Here is an example, execute  "CREATE TABLE test1" and "ALTER TABLE test1 ADD COLUMN" statement, and finally print the schema info of `test1`:
-```
-    executor := NewExecutor("utf8")
-    err := executor.Exec(`
+```go
+executor := NewExecutor("utf8")
+err := executor.Exec(`
     create database test;
     create table test.test1(
         id int unsigned auto_increment primary key,
         name varchar(255) CHARACTER SET utf8 not null default '' unique key
-    ) CHARACTER SET gbk;`)
-    require.Nil(t, err)
+    ) CHARACTER SET gbk;
+`)
+require.Nil(t, err)
  
-    err = executor.Exec(`
+err = executor.Exec(`
     alter table test.test1
         add column addr varchar(255),
         add column phone int not null unique
-    `)
-    require.Nil(t, err)                                                                                                                        
+`)
+require.Nil(t, err)                                                                                                                        
  
-    tableDef, err := executor.GetTableDef("test", "test1")
-    require.Nil(t, err)
+tableDef, err := executor.GetTableDef("test", "test1")
+require.Nil(t, err)
  
-     for _, columnDef := range tableDef.Columns {
-         fmt.Printf("%s.%s %s %s %s %s\n",
-             tableDef.Name, columnDef.Name, columnDef.Type, columnDef.Key, columnDef.Charset, columnDef.Nullable)
-     }
+for _, columnDef := range tableDef.Columns {
+    fmt.Printf("%s.%s %s %s %s %s\n", 
+        tableDef.Name, columnDef.Name, columnDef.Type, columnDef.Key, columnDef.Charset, columnDef.Nullable)
+}
 ```
 
 # Internals
@@ -82,7 +82,7 @@ drop table t1;
 > Those statements above come from MySQL' s test suit, and is part of our compatibility test cases.
 
 # What statements it doesn't support ?
-Some DDL statement that are unfrequent:
+Some DDL statement that are infrequent:
 * ALTER with 'convert charset': ALTER TABLE t1 CONVERT TO CHARACTER SET latin1;
 * ALTER with 'order by': ALTER TABLE  t1 add column new_col int, ORDER BY payoutid, bandid;
 * DDL with geo types: ALTER TABLE t1 ADD b GEOMETRY,   ADD c POINT, ADD SPATIAL INDEX(b);
@@ -96,7 +96,7 @@ You can have a look on 'github.com/bytewatch/ddl-executor/compatibility_test', w
 Type command like this, will execute hundreds of DDL statements in  file `ddl_cases.sql` using this library and MySQL.
 The command will print a diff between output of this library and MySQL's, tells what is not compatible.
 
-```
+```sh
 go build
 ./test.sh ddl_cases.sql latin1 172.17.0.2 3306 root passwd123456
 ```
