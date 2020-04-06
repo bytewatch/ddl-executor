@@ -2,7 +2,7 @@
 The ddl-executor is a golang library that can parse and execute MySQL DDL statements. 
 The library maintains schema structures in memory, for examples: creates a new schema structure when a CREATE statement executed, modifys a schema structure when a ALTER statement executed.
 
-# What can it be used for ? 
+# What can it be used for?
 This library may be used for DDL analysis, binlog stream's schema tracking (like [`binlog_row_metadata=FULL`](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_binlog_row_metadata) in MySQL 8) and so on. 
 
 # Usage
@@ -45,7 +45,7 @@ This library use TiDB 's parser to parse MySQL statement to generate AST(abstrac
 * ALTER DATABASE
 
 
-# What statements it supports ?
+# What statements does it support?
 This library support 99% MySQL DDL statements.The ddl-executor  can execute statements same as MySQL 5.7 identically, such as complicated statement like this:
 ```
 # -----------------------------------------------
@@ -81,7 +81,7 @@ drop table t1;
 ```
 > Those statements above come from MySQL' s test suit, and is part of our compatibility test cases.
 
-# What statements it doesn't support ?
+# What statements are not supported?
 Some DDL statement that are infrequent:
 * ALTER with 'convert charset': ALTER TABLE t1 CONVERT TO CHARACTER SET latin1;
 * ALTER with 'order by': ALTER TABLE  t1 add column new_col int, ORDER BY payoutid, bandid;
