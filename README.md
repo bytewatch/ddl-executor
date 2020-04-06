@@ -89,7 +89,7 @@ Some DDL statement that are infrequent:
 * CREATE TABLE with 'SELECT' clause;
 * Some others unfrequent statement  we don't know now;
 
-Those statements above will raise error when executing whit this library.  
+Those statements above will raise error when executing with this library.  
 
 # Compatibility tests
 You can have a look on 'github.com/bytewatch/ddl-executor/compatibility_test', which is a cmd line tool to test compatibility between this library and MySQL.

@@ -64,7 +64,7 @@ func TestCreateTable(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_PRI,
 		Charset:   "",
@@ -181,7 +181,7 @@ func TestCreateTableWithLike(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_PRI,
 		Charset:   "",
@@ -220,7 +220,7 @@ func TestAlterTableAddColumn(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_PRI,
 		Charset:   "",
@@ -288,7 +288,7 @@ func TestAlterTableAddColumnWithPos(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_PRI,
 		Charset:   "",
@@ -347,7 +347,7 @@ func TestAlterTableDropColumn(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_PRI,
 		Charset:   "",
@@ -411,7 +411,7 @@ func TestAlterTableAddIndex(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_PRI,
 		Charset:   "",
@@ -490,7 +490,7 @@ func TestAlterTableAddIndexLowerCase(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "ID",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_PRI,
 		Charset:   "",
@@ -562,7 +562,7 @@ func TestAlterTableDropIndex(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_MUL,
 		Charset:   "",
@@ -626,7 +626,7 @@ func TestAlterTableModifyColumn(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_NONE,
 		Charset:   "",
@@ -694,7 +694,7 @@ func TestAlterTableModifyColumnWithPos(t *testing.T) {
 	})
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_NONE,
 		Charset:   "",
@@ -734,7 +734,7 @@ func TestAlterTableChangeColumn(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_NONE,
 		Charset:   "",
@@ -796,7 +796,7 @@ func TestAlterTableRenameTable(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_MUL,
 		Charset:   "",
@@ -885,7 +885,7 @@ func TestCreateIndex(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_MUL,
 		Charset:   "",
@@ -947,7 +947,7 @@ func TestRenameTable(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_PRI,
 		Charset:   "",
@@ -977,6 +977,76 @@ func TestRenameTable(t *testing.T) {
 
 	tableDef.Indices = nil
 	require.Equal(t, expectedDef, tableDef)
+
+}
+
+func TestRenameTableMulti(t *testing.T) {
+	var err error
+	expectedDef := &TableDef{
+		Name:     "test2",
+		Database: "test",
+		Charset:  "gbk",
+	}
+	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
+		Name:      "id",
+		Type:      "int(11) unsigned",
+		InnerType: TypeLong,
+		Key:       IndexType_PRI,
+		Charset:   "",
+		Unsigned:  true,
+		Nullable:  false,
+	})
+	expectedDefTest4 := &TableDef{
+		Name:     "test4",
+		Database: "test",
+		Charset:  "gbk",
+	}
+	expectedDefTest4.Columns = append(expectedDefTest4.Columns, &ColumnDef{
+		Name:      "id",
+		Type:      "int(10) unsigned",
+		InnerType: TypeLong,
+		Key:       IndexType_PRI,
+		Charset:   "",
+		Unsigned:  true,
+		Nullable:  false,
+	})
+	executor := NewExecutor(NewDefaultConfig())
+	err = executor.Exec(`
+	create database test;
+	create table test.test1(
+		id int unsigned auto_increment,
+		primary key (id)
+	) CHARACTER SET gbk;
+	create table test.test3(
+		id int(10) unsigned auto_increment,
+		primary key (id)
+	) CHARACTER SET gbk;`)
+	require.Nil(t, err)
+
+	err = executor.Exec(`
+	use test;
+	rename table test1 to test.test2, test3 to test4;`)
+	require.Nil(t, err)
+
+	tableDef, err := executor.GetTableDef("test", "test1")
+	// It should be failed because test.test1 doesn't exist
+	require.NotNil(t, err)
+
+	tableDef, err = executor.GetTableDef("test", "test3")
+	// It should be failed because test.test3 doesn't exist
+	require.NotNil(t, err)
+
+	tableDef, err = executor.GetTableDef("test", "test2")
+	require.Nil(t, err)
+
+	tableDef.Indices = nil
+	require.Equal(t, expectedDef, tableDef)
+
+	tableDef, err = executor.GetTableDef("test", "test4")
+	require.Nil(t, err)
+
+	tableDef.Indices = nil
+	require.Equal(t, expectedDefTest4, tableDef)
 
 }
 
@@ -1030,7 +1100,7 @@ func TestDropIndex(t *testing.T) {
 	}
 	expectedDef.Columns = append(expectedDef.Columns, &ColumnDef{
 		Name:      "id",
-		Type:      "int(10) unsigned",
+		Type:      "int(11) unsigned",
 		InnerType: TypeLong,
 		Key:       IndexType_NONE,
 		Charset:   "",

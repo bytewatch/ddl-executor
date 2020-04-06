@@ -498,49 +498,51 @@ func (o *Executor) enterDropIndexStmt(stmt *ast.DropIndexStmt) error {
 }
 
 func (o *Executor) enterRenameTableStmt(stmt *ast.RenameTableStmt) error {
-	oldDatabaseName := o.getSqlName(stmt.OldTable.Schema)
-	oldTableName := o.getSqlName(stmt.OldTable.Name)
-	newDatabaseName := o.getSqlName(stmt.NewTable.Schema)
-	newTableName := o.getSqlName(stmt.NewTable.Name)
+	for _, value := range stmt.TableToTables {
+		oldDatabaseName := o.getSqlName(value.OldTable.Schema)
+		oldTableName := o.getSqlName(value.OldTable.Name)
+		newDatabaseName := o.getSqlName(value.NewTable.Schema)
+		newTableName := o.getSqlName(value.NewTable.Name)
 
-	oldDatabaseDef, err := o.getSpecifiedOrDefaultDb(oldDatabaseName)
-	if err != nil {
-		return err
-	}
-	tableDef := oldDatabaseDef.cloneTable(oldTableName)
-	if tableDef == nil {
-		return ErrNoSuchTable.Gen(oldDatabaseDef.Name, oldTableName)
-	}
-
-	if newDatabaseName == oldDatabaseName && newTableName == oldTableName {
-		// Nothing to do
-		return nil
-	}
-
-	if newDatabaseName != oldDatabaseName {
-		// The new table name is in another database
-		newDatabaseDef, err := o.getSpecifiedOrDefaultDb(newDatabaseName)
+		oldDatabaseDef, err := o.getSpecifiedOrDefaultDb(oldDatabaseName)
 		if err != nil {
 			return err
 		}
-
-		if newDatabaseDef.findTable(newTableName) != nil {
-			return ErrTableExists.Gen(newTableName)
+		tableDef := oldDatabaseDef.cloneTable(oldTableName)
+		if tableDef == nil {
+			return ErrNoSuchTable.Gen(oldDatabaseDef.Name, oldTableName)
 		}
 
-		oldDatabaseDef.dropTable(oldTableName)
-		tableDef.Name = newTableName
-		newDatabaseDef.setTable(newTableName, tableDef)
-
-	} else {
-		// The new table name is still in the original database
-		if oldDatabaseDef.findTable(newTableName) != nil &&
-			newTableName != oldTableName {
-			return ErrTableExists.Gen(newTableName)
+		if newDatabaseName == oldDatabaseName && newTableName == oldTableName {
+			// Nothing to do
+			continue
 		}
-		oldDatabaseDef.dropTable(oldTableName)
-		tableDef.Name = newTableName
-		oldDatabaseDef.setTable(newTableName, tableDef)
+
+		if newDatabaseName != oldDatabaseName {
+			// The new table name is in another database
+			newDatabaseDef, err := o.getSpecifiedOrDefaultDb(newDatabaseName)
+			if err != nil {
+				return err
+			}
+
+			if newDatabaseDef.findTable(newTableName) != nil {
+				return ErrTableExists.Gen(newTableName)
+			}
+
+			oldDatabaseDef.dropTable(oldTableName)
+			tableDef.Name = newTableName
+			newDatabaseDef.setTable(newTableName, tableDef)
+
+		} else {
+			// The new table name is still in the original database
+			if oldDatabaseDef.findTable(newTableName) != nil &&
+				newTableName != oldTableName {
+				return ErrTableExists.Gen(newTableName)
+			}
+			oldDatabaseDef.dropTable(oldTableName)
+			tableDef.Name = newTableName
+			oldDatabaseDef.setTable(newTableName, tableDef)
+		}
 	}
 
 	return nil
